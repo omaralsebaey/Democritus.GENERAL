@@ -1,0 +1,26 @@
+START
+ |
+ |-- Q1: Are there many hard constraints or must feasibility be exact?
+ |       |-- YES  -> Use HYBRID CQM
+ |       |-- NO   -> Q2
+ |
+ |-- Q2: Is the model binary-only (no integers) and small (Vbin < ~50)? (Binary-only & Small)
+ |       |-- YES -> Q2a
+ |       |         Q2a: Is the landscape highly rugged?
+ |       |               |-- YES -> Use QPU BQM
+ |       |               |-- NO  -> Use SA
+ |       |
+ |       |-- NO  -> Q3
+ |
+ |-- Q3: Is the problem medium size (50 ≤ Vbin ≤ 1000) and binary (or easily binarized)? (Medium)
+ |       |-- YES -> Q3a
+ |       |         Q3a: Is the landscape rugged / do you want quantum acceleration? 
+ |       |               |-- YES -> Use HYBRID BQM
+ |       |               |-- NO  -> Use SA (or Hybrid BQM if you plan experiments)
+ |       |
+ |       |-- NO  -> Q4
+ |
+ |-- Q4: Problem large (Vbin > 1000) or will grow fast
+ |       |-- Use HYBRID CQM (scales better with constraints; preserves feasibility)
+ |
+END
